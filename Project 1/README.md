@@ -1,4 +1,4 @@
-# ** Linux and Basic Commands**
+# **Linux and Basic Commands**
 
 Linux is a family of Open-source Unix operating systems based on the Linux Kernel. They include Ubuntu, RedHat, OpenSUSE, Debian and Fedora.
 When Operating Linux, you need to use a shell which is a program that gives you access to the operating system services. 
@@ -20,7 +20,7 @@ A command may contain an option or parameter and can still run with them.
 
 
 
-**## File Manipulation**
+## **File Manipulation**
 
 1. ### **sudo**: 
 Is a short form for SuperUser do. It is one of the most basic commands to perform tasks that require administrative or root permissions. You will be promoted to autheticate with a password.
