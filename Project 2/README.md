@@ -120,12 +120,12 @@ Output:
 
 
 5. Images: use exclamation mark followed by brackets for alt text and parentheses containing the image URL.
+
 ```console
 ![Alt Text](https://example.com/image.jpg)
 ```
 
-Output:
-![Alt Text](https://example.com/image.jpg)
+
 
 6. Code: use backticks
 ```console
