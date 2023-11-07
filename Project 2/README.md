@@ -63,7 +63,6 @@ Follow the below steps to create your repository;
 ![Alt text](<Images/Screenshot 9.png>)
 ![Alt text](<Images/Screenshot 10.png>)
 
-
 ## **Branch Management and Tagging**
 
 ### **Introduction to Markdown Syntax**
