@@ -55,11 +55,11 @@ Follow the below steps to create your repository;
 8. After making changes, you can commit back to the Github repository running ```git push .```
 9. You can clone remote Git repo running ```git clone <link to remote repo>```
 
-![Alt text](<Screenshot 4.png>)
+![Alt text](<Images/Screenshot 4.png>)
 ![Alt text](<Images/Screenshot 5.png>)
+![Alt text](<Images/Screenshot 6_1.png>)
 ![Alt text](<Images/Screenshot 6.png>)
 ![Alt text](<Images/Screenshot 7.png>)
-![Alt text](<Images/Screenshot 8.png>)
 ![Alt text](<Images/Screenshot 9.png>)
 ![Alt text](<Images/Screenshot 10.png>)
 
