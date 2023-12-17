@@ -15,9 +15,10 @@ You need an AWS Account where you will create an Ubuntu 22.04LTS(HVM) server. Wh
 ssh -i <Your-private-key.pem> ubuntu@<EC2-Public-IP-address>
 ```
 
+![Alt text](<Images/Screenshot 1.png>)
 
 
-### **Installing the Nginx Web Server and updating the firewall**
+### **Installing the Nginx Web Server**
 Below are the steps to install Nginx Server;
 
 1. Run the below commands to update the list of packages in the package manager and the second command is to run the nginx package installer.
@@ -26,6 +27,9 @@ Below are the steps to install Nginx Server;
 $ sudo apt update
 $ sudo apt install nginx
 ```
+![Alt text](<Images/Screenshot 2.png>)
+
+![Alt text](<Images/Screenshot 3.png>)
 
 
 2. Verify that nginx is running as a service in the OS by running the below command and if it is green and running, then you have just launched your first Web Server in the cloud.
@@ -33,12 +37,12 @@ $ sudo apt install nginx
 $ sudo systemctl status nginx
 ```
 
-
+![Alt text](<Images/Screenshot 4.png>)
 
 
 3. Open port 80 which is the default port that web servers use to access web pages on the internet. This should be done on the AWS console where the SSH port was enabled.
 
-
+![Alt text](<Images/Screenshot 5.png>)
 
 4. Run the below commands to test how the nginx server responds to curl with some payload after the HTTP port is configured running the below commands. The first command is trying to access the webserver via a DNS name while the second by IPs address(the Ip specified, corresponds to the DNS name 'localhost' and the process of converting the DNS name to Ip is called resolution).
 ```console
@@ -46,18 +50,19 @@ $ curl http://localhost:80
 or
 $ curl http://127.0.0.1:80
 ```
-
+![Alt text](<Images/Screenshot 6.png>)
 
 
 5. Once you get a positive response, you can try accessing from your browser via this address ```https://<insert your Public Ip address>:80``` . This is the page you should see and it is the same content as seen in the curl local host command ran just that on the web, the HTML formatting is represented well.
 
+![Alt text](<Images/Screenshot 7.png>)
 
 
 Another way to retrieve your Public Ip address without going to the AWS console is to run the below command.
 ```console
 curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 ```
-
+![Alt text](<Images/Screenshot 8.png>)
 
 ## **Installing MySQL**
 The next step is to install a Database Management System inorder to store and manage the data of your site in a relational database and MySQL is the popular one used with PHP environments.
@@ -67,7 +72,7 @@ Follow the below steps to install MySQL:
 ```console
 sudo apt install mysql-server
 ```
-
+![Alt text](<Images/Screenshot 9.png>)
 
 2. Login to the MySQL console running and this will connect to the MySQL server as the administrative database User **root** which is inferred by teh use of **sudo** when running the command.
 ```console
@@ -96,12 +101,11 @@ mysql>**
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
 ```
 
-
 3. Exit the MySQL shell with 
 ```console
 mysql> exit
 ```
-
+![Alt text](<Images/Screenshot 10.png>)
 
 
 4. Start the interactive script by running the below. 
@@ -143,6 +147,7 @@ Do you wish to continue with the password provided?(Press y|Y for Yes, any other
 
 For the rest of questions press *Y* and hit *Enter* at each prompt.This will prompt you to change root password, remove some anonymous users and test database, disable remote root logins and load these new rules so that MySQL immediately respects the changes made.
 
+![Alt text](<Images/Screenshot 11.png>)
 
 
 5. When finished, test if login is successful running the below command. The -p flag will prompt for password used after changing the root user password. You can then log out with the command ```*mysql> exit*```
@@ -150,6 +155,11 @@ For the rest of questions press *Y* and hit *Enter* at each prompt.This will pro
 ```console
 sudo mysql -p
 ```
+
+
+![Alt text](<Images/Screenshot 12.png>)
+
+
 Note: At the time of this writing, the native MySQL PHP library mysqlnd doesn’t support caching_sha2_authentication, the default authentication method for MySQL 8. For that reason, when creating database users for PHP applications on MySQL 8, you’ll need to make sure they’re configured to use mysql_native_password instead. We’ll demonstrate how to do that in Step 6.
 
 
@@ -164,6 +174,9 @@ Below are the steps to install PHP:
 sudo apt install php-fpm php-mysql
 ```
 
+![Alt text](<Images/Screenshot 13.png>)
+
+
 ### **Configuring Nginx to use PHP Processor**
 When using Nginx, we can create server blocks to encapsulate configuration details and host more than one Domain on a single server. 
 
@@ -173,20 +186,20 @@ Ubuntu has a default server block and is configired to serve documents out of di
 ```console
 $ sudo mkdir /var/www/projectlemp
 ```
-
+![Alt text](<Images/Screenshot 14.png>)
 
 2. Assign ownership of the directory with the ```&USER``` environment variable, which will reference the current system user.
 ```console
 $ sudo chown -R $USER:$USER /var/www/projectlemp
 ```
+![Alt text](<Images/Screenshot 15.png>)
 
 
 3. Create and open a new configuration file in Apache's ```sites-available``` directory using any command line editor.
 ```console
 $ sudo nano /etc/nginx/sites-available/projectlamp.conf
 ```
-
-
+![Alt text](<Images/Screenshot 16.png>)
 
 4. Paste the below bare-bones configuration on the blank file.
 
@@ -217,7 +230,7 @@ server {
 
 ```
 
-
+![Alt text](<Images/Screenshot 17.png>)
 
 When you are done editing, save and close the file using CTRL + X and then Y and ENTER to confirm.
 
@@ -226,6 +239,9 @@ When you are done editing, save and close the file using CTRL + X and then Y and
 ```console
 $ sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
 ```
+![Alt text](<Images/Screenshot 18.png>)
+
+
 **Note**: with this configuration, we are telling Nginx to use this configuration next time it is loaded. You can test the configuration for syntax errors by typing
 
 ```console
@@ -238,42 +254,43 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 If you see any error, go back to the configuration file and review its content.
 
-
+![Alt text](<Images/Screenshot 19.png>)
 
 8. You might want to disable the default Nginx host that is currently configured to listen to port 80 for this run;
 
 ```console
 sudo unlink /etc/nginx/sites-enabled/default
 ```
+![Alt text](<Images/Screenshot 20.png>)
 
 10. reload Nginx so the changes can take effect
 ```console
 $ sudo systemctl reload nginx
 ```
-
-
+![Alt text](<Images/Screenshot 21.png>)
 
 11. Your new website is now active but **/var/www/projectlemp** is still empty. Create an index.html file in that location so that you can test the Virtual host works as expected.
 ```console
 sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
 ``` 
-
+![Alt text](<Images/Screenshot 22.png>)
 
 12. Access the website from the browser
 ```console
 http://<Public-IP-Address>:80
 ```
-
-
-13. If you see the text from the **'echo'** command written to the html file, then the Nginx site is working well. You should see your server's public hostname(DNS name) and Public Ip address. You can also access Website on your browser by public DMS name.
+You can also access Website on your browser by public DMS name.
 ```console
 http://<Public-DNS-Name>:80
 ```
 
+13. If you see the text from the **'echo'** command written to the html file, then the Nginx site is working well. You should see your server's public hostname(DNS name) and Public Ip address.
+
+![Alt text](<Images/Screenshot 23.png>)
+
 You can leave this file on your temporary landing page for your application until you set up an index.php file to replace it. 
 
 You LEMP stack is now fully configured.
-
 
 
 ### **Testing PHP with Nginx**
@@ -286,86 +303,91 @@ nano /var/www/projectLEMP/info.php
 ```<?php
 phpinfo();
 ```
+![Alt text](<Images/Screenshot 24.png>)
 
-3. You can now access this page on your web browser visiting the domain name or Public IP you set up on the configuration file followed by ```/info/php```
+3. You can now access this page on your web browser visiting the domain name or Public IP you set up on the configuration file followed by ```/info.php```
 
 ```console
 http://`server_domain_or_IP`/info.php
 ```
-
+![Alt text](<Images/Screenshot 25.png>)
 
 4. Remove the file after testing as the infomation displayed is sensitive.
 ```console
 $ sudo rm /var/www/your_domain/info.php
 ```
+![Alt text](<Images/Screenshot 26.png>)
 
 
 ### **Retrieving Data from MySQL databse with PHP
-1. Create a database named **example_database** and user named **example_user** and connect to mySQL using root account
+1. Create a database named **example_database** and user named **example_user** and connect to mySQL using root account and adding the -p to request for password as access will be denied is you do not log in using password.
 ```console
-sudo mysql
+sudo mysql -p
 ```
-
+![Alt text](<Images/Screenshot 27.png>)
 
 2. Create a new dabase running this command from your SQl console
 ```console
-mysql> CREATE DATABASE `example_database`;
+mysql> CREATE DATABASE `EXAMPLA_DATABASE`;
 ```
-
+![Alt text](<Images/Screenshot 27_B.png>)
 
 3. Create a new user and grant user full priviledges on the database you have just created. the below command creates the user **example_user** with password **PassWord.1**.
 
 ```console
-mysql>  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
+CREATE USER 'example_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Password.1';
 ```
+
+![Alt text](<Images/Screenshot 28.png>)
 
 4. Give the user permission over the database.
 ```console
 mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
 ```
-
+![Alt text](<Images/Screenshot 29.png>)
 
 5. Now exit the SQL shell.
 ```console
 mysql> exit
 ```
-
+![Alt text](<Images/Screenshot 30.png>)
 
 6. Test if user has proper permission. Glag -p will prompt for password.
 ```console
 $ mysql -u example_user -p
 ```
-
+![Alt text](<Images/Screenshot 31.png>)
 
 7. Confirm you have access to database
 ```console
 mysql> SHOW DATABASES;
 ```
-
+![Alt text](<Images/Screenshot 32.png>)
 
 8. Create a test table named *8todo_list**. 
 ```console
 CREATE TABLE example_database.todo_list (item_id INT AUTO_INCREMENT,content VARCHAR(255),PRIMARY KEY(item_id));
 ```
-
+![Alt text](<Images/Screenshot 33.png>)
 
 9. Insert few rows of contant in the test table
 ```console
 mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
 ```
-
+![Alt text](<Images/Screenshot 34.png>)
 
 10. To confirm the data was successfully saved, run and exit with ***exit***.
 ```console
 mysql>  SELECT * FROM example_database.todo_list;
 ```
+![Alt text](<Images/Screenshot 35.png>)
 
 
 11. Now create a PHP script to connect to my SQL and query your content. Create a new file in the custom web root directory 
 ```console
 $ nano /var/www/projectLEMP/todo_list.php
 ```
-
+![Alt text](<Images/Screenshot 36.png>)
 
 12. Copy the below into the todolists.php file and save/close.
 
@@ -389,10 +411,15 @@ try {
 }
 ```
 
-Reaacess the Web page via 
+![Alt text](<Images/Screenshot 37.png>)
+
+
+Re-access the Web page via 
 ```
 http://<Public_domain_or_IP>/todo_list.php
 ```
+![Alt text](<Images/Screenshot 38.png>)
+
 
 
 
