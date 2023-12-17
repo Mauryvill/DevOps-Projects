@@ -165,8 +165,6 @@ sudo mysql -p
 ```
 ![Alt text](<Images/Screenshot 13.png>)
 
-
-
 ## **Installing PHP**
 PHP is the content that will help process code to display dynamic content to the end user. For the PHP package, the ```php-mysql``` module that allows PHP to cmummunicate with MySQL-based databases is needed. There also need for ```libapache2-mod-php``` to enable Apache handle PHP files. The Core PHP packages will be installed as dependencies.
 
@@ -187,62 +185,6 @@ php -v
 ![Alt text](<Images/Screenshot 16.png>)
 
 At this point the LAMP stack (Linux, Apache, MySQL and PHP) is completely installed and fully operational.
-
-
-## **Enable PHP on Website**
-To test the setup with a PHP script, it is best to set up the Apache Virtual Host properly to hold the website files and folders. The Virtual host allows one to host multiple websites on a single machine and users of websites will not even notice it.
-
-1. With the default **DirectoryIndex**, settings on Apache, a file named ```index.html``` will always take precedence over an ```index.php``` file. This is useful for setting up maintenance pages in PHP application, by creating a temporary ```index.html``` file containing an informative message to visitors. Once maintenance is over, the ```index.html``` is renamed or removed from the document root, bringing back the regular application page. 
-
-To change this, you will need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the Directoryindex directive.
-
-```console
-sudo vim /etc/apache2/mods-enabled/dir.conf
-```
-![Alt text](<Images/Screenshot 19.png>)
-
-
-```
-<IfModule mod_dir.c>
-        #Change this:
-        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
-        #To this:
-        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
-</IfModule>
-```
-![Alt text](<Images/Screenshot 17.png>)
-
-
-2. After saving and closing the file, reload Apache so the changes can take effect running the below command.
-```console
-sudo systemctl reload apache2
-```
-![Alt text](<Images/Screenshot 19.png>)
-
-
-3. We will create a PHP script to confirm that Apache is able to handle and process requests for PHP files. 
-
-- Create a new file named ```index.php``` inside the custom web root folder.
-```console
-sudo vim /var/www/html/index.php
-```
-This will open a blank file, then add the below text which is valid PHP code inside the file. Once you are done, close the file and refresh the page to see a page that provides information about the server.
-```
-<?php
-phpinfo();
-```
-![Alt text](<Images/Screenshot 27.png>)
-
-![Alt text](<Images/Screenshot 21.png>)
-
-
-- After confirmation, it is safe to remove the file as it contains sensitive information about your PHP environment and Ubuntu Server running the below command.
-
-```console
-sudo rm index.php
-```
-![Alt text](<Images/Screenshot 28.png>)
-
 
 ## **Creating a Virtual Host for your Website using Apache**
 We will be setting up a domain called ```projectlamp``` . Apache on ubuntu 20.04 has a server block enabled by default that is configured to serve documents from the */var/www/html* directory and we will be leaving this confirguration as it is and create another directory next to the default one.
@@ -337,6 +279,63 @@ http://<Public-DNS-Name>:80
 ```
 ![Alt text](<Images/Screenshot 26.png>)
 
+
+## **Enable PHP on Website**
+To test the setup with a PHP script, it is best to set up the Apache Virtual Host properly to hold the website files and folders. The Virtual host allows one to host multiple websites on a single machine and users of websites will not even notice it.
+
+1. With the default **DirectoryIndex**, settings on Apache, a file named ```index.html``` will always take precedence over an ```index.php``` file. This is useful for setting up maintenance pages in PHP application, by creating a temporary ```index.html``` file containing an informative message to visitors. Once maintenance is over, the ```index.html``` is renamed or removed from the document root, bringing back the regular application page. 
+
+To change this, you will need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the Directoryindex directive.
+
+```console
+sudo vim /etc/apache2/mods-enabled/dir.conf
+```
+![Alt text](<Images/Screenshot 19.png>)
+
+
+```
+<IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+```
+![Alt text](<Images/Screenshot 17.png>)
+
+
+2. After saving and closing the file, reload Apache so the changes can take effect running the below command.
+```console
+sudo systemctl reload apache2
+```
+![Alt text](<Images/Screenshot 19.png>)
+
+
+3. We will create a PHP script to confirm that Apache is able to handle and process requests for PHP files. 
+
+- Create a new file named ```index.php``` inside the custom web root folder.
+```console
+sudo vim /var/www/html/index.php
+```
+This will open a blank file, then add the below text which is valid PHP code inside the file. Once you are done, close the file and refresh the page to see a page that provides information about the server.
+```
+<?php
+phpinfo();
+```
+![Alt text](<Images/Screenshot 27.png>)
+
+![Alt text](<Images/Screenshot 21.png>)
+
+![Alt text](<Images/Screenshot 23.png>)
+
+
+
+- After confirmation, it is safe to remove the file as it contains sensitive information about your PHP environment and Ubuntu Server running the below command.
+
+```console
+sudo rm index.php
+```
+![Alt text](<Images/Screenshot 28.png>)
 
 
 Thank you.
