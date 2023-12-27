@@ -2,13 +2,13 @@
 
 ## **Introduction to Shell Scripting and User Input**
 
-In the Git course, we hrote commands on teh terminal and getting corresponding outputs. The commands are instructions to the computer to carryout task.
+In the Git course, we wrote commands on teh terminal and getting corresponding outputs. The commands are instructions to the computer to carryout task.
 
 For example, when we want to clone a git repository, we type the command ```git clone``` and pass in the link to the repository. In less than no time, the repository is downloaded into our local machine.
 
-Let us say you are given a task to clone 1000 repositories. yesm you can type the ```git clone``` command 1000 times and the Job gets done. Someone with no great patience may be unable to complete the task and this is where Shell scripting comes in.
+Let us say you are given a task to clone 1000 repositories. yes you can type the ```git clone``` command 1000 times and the Job gets done. Someone with no great patience may be unable to complete the task and this is where Shell scripting comes in.
 
-Shell scripting helps automate repetitive tasks by righting a script that will clone all 1000 repositories.
+Shell scripting helps automate repetitive tasks by writing a script that will clone all 1000 repositories.
 
 Bash scripts are essentially a series of commands and instructions that are executed sequentially in a shell. You can create a shell script by saving a collection of commands ina text file with a **.sh** extension. These scripts can be executed directly from the command line or called from other scripts.
 
