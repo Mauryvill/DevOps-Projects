@@ -2,7 +2,7 @@
 
 ## **Introduction to Shell Scripting and User Input**
 
-In the Git course, we wrote commands on teh terminal and getting corresponding outputs. The commands are instructions to the computer to carryout task.
+In the Git course, we wrote commands on the terminal and getting corresponding outputs. The commands are instructions to the computer to carryout task.
 
 For example, when we want to clone a git repository, we type the command ```git clone``` and pass in the link to the repository. In less than no time, the repository is downloaded into our local machine.
 
